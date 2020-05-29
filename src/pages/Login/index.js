@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import { makeLogin } from "./utils";
+
 import { AuthContext } from "context/AuthContext";
 
 import Logo from "components/Logo";
@@ -16,22 +18,29 @@ const LoginPage = () => {
     password: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // just to show loading component
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
 
-  const _signIn = () => {
+  const _signIn = async () => {
     setLoading(true);
-    setTimeout(() => {
-      updateAuth({
-        ...authState,
-        loggedIn: true,
-        user,
-      });
-      setLoading(false);
-    }, 1500);
+    let status = await makeLogin({ ...user });
+
+    if (!status) {
+      alert("Error, please check your credentials");
+      return setLoading(false);
+    }
+
+    await updateAuth({
+      ...authState,
+      loggedIn: true,
+      user,
+    });
+
+    return setLoading(false);
   };
 
   if (loading) return <Loading />;

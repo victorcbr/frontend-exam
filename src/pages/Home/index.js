@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
-// import { Container } from './styles';
+import { AuthContext } from "context/AuthContext";
 
-const Home = () => {
-  return <div />;
+import { Container } from "./styles";
+
+const Home = ({ history }) => {
+  const [authState, updateAuth] = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!authState.loggedIn) return history.push("/login");
+  }, []);
+
+  return (
+    <Container>
+      <p>teste</p>
+    </Container>
+  );
 };
 
 export default Home;

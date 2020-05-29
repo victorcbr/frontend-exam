@@ -10,6 +10,7 @@ const LogoComponent = () => {
 };
 
 const styles = {
+  width: "100%",
   maxWidth: "274px",
   maxHeight: "137px",
 };

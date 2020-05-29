@@ -1,0 +1,34 @@
+.customLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1d1a1a;
+}
+
+#loading {
+  background-image: url("./custom_load.svg");
+}
+
+@keyframes play48 {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -1728px 0px;
+  }
+}
+.customLoadingImage {
+  animation: play48 infinite;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  transition-timing-function: linear;
+  animation-duration: 800ms;
+  animation-timing-function: steps(48);
+  width: 36px;
+  height: 65px;
+  background-repeat: no-repeat;
+}
+.customLoadingImage.play {
+  animation-name: play48;
+}

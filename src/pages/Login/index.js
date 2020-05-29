@@ -10,7 +10,7 @@ import Loading from "components/Loading";
 
 import { Container, Form, CustomButton } from "./styles";
 
-const LoginPage = () => {
+const LoginPage = ({ history }) => {
   const [authState, updateAuth] = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({
@@ -40,7 +40,9 @@ const LoginPage = () => {
       user,
     });
 
-    return setLoading(false);
+    setLoading(false);
+
+    return history.push("/");
   };
 
   if (loading) return <Loading />;

@@ -20,7 +20,6 @@ const InputComponent = (props) => {
   return (
     <CssTextField
       {...props}
-      color="#fff"
       InputProps={{
         style: {
           color: "#fff",

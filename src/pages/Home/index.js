@@ -30,12 +30,7 @@ const Home = ({ history }) => {
           <CustomButton fullWidth style={styles.trailerButton}>
             Trailers
           </CustomButton>
-          <CustomButton
-            fullWidth
-            variant="text"
-            color="#fff"
-            onClick={() => _signOut()}
-          >
+          <CustomButton fullWidth variant="text" onClick={() => _signOut()}>
             logout
           </CustomButton>
         </div>

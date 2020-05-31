@@ -12,7 +12,7 @@ const Home = ({ history }) => {
 
   useEffect(() => {
     if (!authState.loggedIn) return history.push("/login");
-  }, []);
+  }, [authState.loggedIn, history]);
 
   const _signOut = async () => {
     return await updateAuth({

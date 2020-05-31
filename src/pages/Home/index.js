@@ -17,15 +17,18 @@ import Logo from "components/Logo";
 
 import { getVideosByPlaylist } from "config/api";
 
-import { Modal, Grow } from "@material-ui/core";
+import { Modal, Grow, Fade, CircularProgress } from "@material-ui/core";
 
 const Home = ({ history }) => {
   const [authState, updateAuth] = useContext(AuthContext);
   const [videos, setVideos] = useState([]);
+  const [videosSlice, setVideosSlice] = useState([]);
   const [modal, setModal] = useState({
     open: false,
     video: "",
   });
+  const [after, setAfter] = useState(3);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
     if (!authState.loggedIn) return history.push("/login");
@@ -39,6 +42,7 @@ const Home = ({ history }) => {
 
   const _getVideos = useCallback(async () => {
     return await getVideosByPlaylist().then(({ items }) => {
+      setVideosSlice(items.slice(0, 3));
       return setVideos(items);
       // return
     });
@@ -53,20 +57,19 @@ const Home = ({ history }) => {
   };
 
   const VideosList = () => {
-    const VideosMap = videos.map((item) => {
+    const VideosMap = videosSlice.map((item) => {
       return (
         <Grow in key={item.snippet.resourceId.videoId}>
           <VideoLink
-            // "https://www.youtube.com/embed/hEnr6Ewpu_U?autoplay=1&mute=1"
-            // href={`https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}&list=${item.snippet.playlistId}`}
-            target="_blank"
+            href="#"
             rel="noreferrer"
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
               setModal({
                 open: true,
                 video: `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1`,
-              })
-            }
+              });
+            }}
           >
             <VideoContent
               width={item.snippet.thumbnails.high.width}
@@ -80,6 +83,34 @@ const Home = ({ history }) => {
       );
     });
     return VideosMap;
+  };
+
+  const doMore = () => {
+    setLoadingMore(true);
+
+    setTimeout(() => {
+      setLoadingMore(false);
+      setVideosSlice(videos.slice(0, after + 4));
+      setAfter(after + 4);
+    }, 1500);
+  };
+
+  const LoadMoreButton = () => {
+    return (
+      videos.length !== after && (
+        <Fade in={true}>
+          <CustomButton onClick={() => doMore()}>Load More</CustomButton>
+        </Fade>
+      )
+    );
+  };
+
+  const LoadMoreProgress = () => {
+    return (
+      <Fade in={true}>
+        <CircularProgress style={styles.color} />
+      </Fade>
+    );
   };
 
   return (
@@ -101,18 +132,8 @@ const Home = ({ history }) => {
 
       <Content>
         <VideosList />
-        <div
-          style={{
-            fontSize: 38,
-            color: "orange",
-            width: 480,
-            height: 360,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CustomButton>Load More</CustomButton>
+        <div style={styles.div}>
+          {loadingMore ? <LoadMoreProgress /> : <LoadMoreButton />}
         </div>
       </Content>
 
@@ -141,6 +162,19 @@ const Home = ({ history }) => {
       </Modal>
     </Container>
   );
+};
+
+const styles = {
+  div: {
+    width: 480,
+    height: 360,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  color: {
+    color: "#a99e7e",
+  },
 };
 
 export default Home;

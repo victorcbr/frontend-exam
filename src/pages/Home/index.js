@@ -72,9 +72,7 @@ const Home = ({ history }) => {
       <Menu>
         <Logo />
         <div>
-          <CustomButton fullWidth style={styles.trailerButton}>
-            Trailers
-          </CustomButton>
+          <CustomButton fullWidth>Trailers</CustomButton>
           <CustomButton fullWidth variant="text" onClick={() => _signOut()}>
             logout
           </CustomButton>
@@ -86,13 +84,6 @@ const Home = ({ history }) => {
       </Content>
     </Container>
   );
-};
-
-const styles = {
-  logo: {
-    marginTop: 100,
-  },
-  trailerButton: { padding: 5, margin: "50px auto 0" },
 };
 
 export default Home;

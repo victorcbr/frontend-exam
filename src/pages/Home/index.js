@@ -17,9 +17,15 @@ import Logo from "components/Logo";
 
 import { getVideosByPlaylist } from "config/api";
 
+import { Modal, Grow } from "@material-ui/core";
+
 const Home = ({ history }) => {
   const [authState, updateAuth] = useContext(AuthContext);
   const [videos, setVideos] = useState([]);
+  const [modal, setModal] = useState({
+    open: false,
+    video: "",
+  });
 
   useEffect(() => {
     if (!authState.loggedIn) return history.push("/login");
@@ -49,20 +55,28 @@ const Home = ({ history }) => {
   const VideosList = () => {
     const VideosMap = videos.map((item) => {
       return (
-        <VideoLink
-          href={`https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}&list=${item.snippet.playlistId}`}
-          target="_blank"
-          rel="noreferrer"
-          key={item.snippet.resourceId.videoId}
-        >
-          <VideoContent
-            width={item.snippet.thumbnails.high.width}
-            height={item.snippet.thumbnails.high.height}
-            backgroundUrl={item.snippet.thumbnails.high.url}
+        <Grow in key={item.snippet.resourceId.videoId}>
+          <VideoLink
+            // "https://www.youtube.com/embed/hEnr6Ewpu_U?autoplay=1&mute=1"
+            // href={`https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}&list=${item.snippet.playlistId}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() =>
+              setModal({
+                open: true,
+                video: `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}?autoplay=1`,
+              })
+            }
           >
-            <VideoTitle>{item.snippet.title}</VideoTitle>
-          </VideoContent>
-        </VideoLink>
+            <VideoContent
+              width={item.snippet.thumbnails.high.width}
+              height={item.snippet.thumbnails.high.height}
+              backgroundUrl={item.snippet.thumbnails.high.url}
+            >
+              <VideoTitle>{item.snippet.title}</VideoTitle>
+            </VideoContent>
+          </VideoLink>
+        </Grow>
       );
     });
     return VideosMap;
@@ -101,6 +115,30 @@ const Home = ({ history }) => {
           <CustomButton>Load More</CustomButton>
         </div>
       </Content>
+
+      <Modal
+        open={modal.open}
+        onClose={() => setModal({ open: false, video: "" })}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        style={{
+          backgroundColor: "rgba(0,0,0,0.5)",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <iframe
+          src={modal.video}
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          title="video"
+          width="60%"
+          height="60%"
+        />
+      </Modal>
     </Container>
   );
 };

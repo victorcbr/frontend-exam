@@ -28,7 +28,7 @@ const Home = ({ history }) => {
     video: "",
   });
   const [after, setAfter] = useState(3);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(true);
 
   useEffect(() => {
     if (!authState.loggedIn) return history.push("/login");
@@ -43,6 +43,7 @@ const Home = ({ history }) => {
   const _getVideos = useCallback(async () => {
     return await getVideosByPlaylist().then(({ items }) => {
       setVideosSlice(items.slice(0, 3));
+      setLoadingMore(false);
       return setVideos(items);
       // return
     });
@@ -90,8 +91,8 @@ const Home = ({ history }) => {
 
     setTimeout(() => {
       setLoadingMore(false);
-      setVideosSlice(videos.slice(0, after + 4));
-      setAfter(after + 4);
+      setVideosSlice(videos.slice(0, after + 8));
+      setAfter(after + 8);
     }, 1500);
   };
 

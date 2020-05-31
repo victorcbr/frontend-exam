@@ -21,7 +21,7 @@ export const CustomButton = styled(Button)`
   && {
     border-radius: 3px;
     border: ${(props) => (props.variant ? null : "1px solid #a99e7e")};
-    color: ${(props) => props.color || "#a99e7e"};
+    color: ${(props) => props.textcolor || "#a99e7e"};
     margin: 20px auto;
     padding: 11px 35px;
     text-transform: uppercase;

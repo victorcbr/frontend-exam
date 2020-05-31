@@ -73,7 +73,12 @@ const Home = ({ history }) => {
         <Logo />
         <div>
           <CustomButton fullWidth>Trailers</CustomButton>
-          <CustomButton fullWidth variant="text" onClick={() => _signOut()}>
+          <CustomButton
+            fullWidth
+            variant="text"
+            onClick={() => _signOut()}
+            textcolor="#fff"
+          >
             logout
           </CustomButton>
         </div>

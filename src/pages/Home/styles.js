@@ -25,12 +25,13 @@ export const Content = styled.div`
   display: flex;
   flex: 3;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   overflow: scroll;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
+  padding: 0 20px;
 `;
 
 export const VideoLink = styled.a`

@@ -47,7 +47,7 @@ const Home = ({ history }) => {
   };
 
   const VideosList = () => {
-    return videos.map((item) => {
+    const VideosMap = videos.map((item) => {
       return (
         <VideoLink
           href={`https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}&list=${item.snippet.playlistId}`}
@@ -65,6 +65,7 @@ const Home = ({ history }) => {
         </VideoLink>
       );
     });
+    return VideosMap;
   };
 
   return (
@@ -86,6 +87,19 @@ const Home = ({ history }) => {
 
       <Content>
         <VideosList />
+        <div
+          style={{
+            fontSize: 38,
+            color: "orange",
+            width: 480,
+            height: 360,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CustomButton>Load More</CustomButton>
+        </div>
       </Content>
     </Container>
   );

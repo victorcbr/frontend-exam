@@ -141,25 +141,27 @@ const Home = ({ history }) => {
       <Modal
         open={modal.open}
         onClose={() => setModal({ open: false, video: "" })}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        style={{
-          backgroundColor: "rgba(0,0,0,0.5)",
-          color: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={styles.modal}
+        maxWidth="md"
       >
-        <iframe
-          src={modal.video}
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          title="video"
-          width="60%"
-          height="60%"
-        />
+        <>
+          <CustomButton
+            onClick={() => setModal({ open: false, video: "" })}
+            variant="text"
+            style={styles.modalClose}
+          >
+            Close
+          </CustomButton>
+          <iframe
+            src={modal.video}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title="video"
+            width="60%"
+            height="60%"
+          />
+        </>
       </Modal>
     </Container>
   );
@@ -176,6 +178,14 @@ const styles = {
   color: {
     color: "#a99e7e",
   },
+  modal: {
+    backgroundColor: "rgba(29, 26, 26, 0.9)",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalClose: { position: "absolute", top: 10, right: 10, color: "#fff" },
 };
 
 export default Home;

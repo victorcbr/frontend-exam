@@ -20,6 +20,11 @@ const LoginPage = ({ history }) => {
 
   useEffect(() => {
     // just to show loading component
+    if (authState.loggedIn) return history.push("/");
+  }, [authState.loggedIn, history]);
+
+  useEffect(() => {
+    // just to show loading component
     setTimeout(() => {
       setLoading(false);
     }, 2000);

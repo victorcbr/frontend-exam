@@ -6,6 +6,10 @@ import { Home, Login } from "pages";
 
 import PrivateRoute from "config/PrivateRoute";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const App = () => (
   <Router>
     <Switch>

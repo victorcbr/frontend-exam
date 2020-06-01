@@ -118,7 +118,8 @@ const Home = ({ history }) => {
     <Container>
       <Menu>
         <Logo />
-        <div>
+
+        <div className="buttons">
           <CustomButton fullWidth>Trailers</CustomButton>
           <CustomButton
             fullWidth
